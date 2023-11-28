@@ -34,6 +34,8 @@ dependencies:
   connectivity:
   data_connection_checker:
   flutter_easyloading:
+  permission_handler:
+
 
 dev_dependencies:
   flutter_test:
