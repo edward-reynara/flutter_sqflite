@@ -27,21 +27,13 @@ class SqfliteDatabaseHelper {
   Future<Database> initDb()async{
     await _checkStoragePermissions();
 
-    // Create the directory
-    // Directory externalStorage = await getExternalStorageDirectory();
-    final externalStorage = Directory('/storage/emulated/0');
-    final edoPath = join(externalStorage.path, 'edo');
-
-    // Check if the directory exists
-    if (!(await Directory(edoPath).exists())) {
-      // Create the directory if it doesn't exist
-      await Directory(edoPath).create(recursive: true);
-
-      print('Edo directory created at: $edoPath');
+    final externalStorage = Directory('/storage/emulated/0/forisa');
+    // final Path = join(externalStorage.path, 'edo');
+    if (!(await Directory(externalStorage.path).exists())) {
+      await Directory(externalStorage.path).create(recursive: true);
     }
 
-    ////
-    String dbPath = join(edoPath,'syncdatabase.db');
+    String dbPath = join(externalStorage.path,'syncdatabase.db');
     print("dbPath");
     print(dbPath);
     var openDb = await openDatabase(dbPath,version: _version,
@@ -147,5 +139,6 @@ class SqfliteDatabaseHelper {
       // Permission already granted, proceed with the operation.
       print('Read permission already granted');
     }
+
   }
 }
